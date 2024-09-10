@@ -33,7 +33,7 @@ class MyEnum(enum.Enum):
     post = 4
 
 class User(Base):
-    __tablename__ = 'User'
+    __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
     username = Column(String(250), nullable=False)
     firstname = Column(String(250), nullable=False)
@@ -44,38 +44,38 @@ class User(Base):
         return {}
 
 class Post(Base):
-    __tablename__ = "Post"
+    __tablename__ = "post"
     id = Column(Integer, primary_key=True)
-    user_id =  Column(Integer, ForeignKey('User.id'))
+    user_id =  Column(Integer, ForeignKey('user.id'))
 
     def to_dict(self):
         return {}
 
 class Media(Base):
-    __tablename__ = 'Media'
+    __tablename__ = 'media'
     id = Column(Integer, primary_key=True)
     type = Column(Enum(MyEnum), nullable=False)
     url = Column(String(250), nullable=False)
-    post_id = Column(Integer, ForeignKey('User.id'))
+    post_id = Column(Integer, ForeignKey('post.id'))
 
     def to_dict(self):
         return {}
 
 class Comment(Base):
-    __tablename__ = "Comment"
+    __tablename__ = "comment"
     id = Column(Integer, primary_key=True)
     comment_text= Column(String(250), nullable=False)
-    author_id = Column(Integer, ForeignKey('User.username'))
-    post_id = Column(Integer, ForeignKey('Post.id'))
+    author_id = Column(Integer, ForeignKey('user.username'))
+    post_id = Column(Integer, ForeignKey('post.id'))
 
     def to_dict(self):
         return {}
 
 class Follower(Base):
-    __tablename__ = "Follower"
+    __tablename__ = "follower"
     id = Column(Integer, primary_key=True)
-    user_from_id = Column(Integer, ForeignKey('User.id'))
-    user_to_id = Column(Integer, ForeignKey('User.id'))
+    user_from_id = Column(Integer, ForeignKey('user.id'))
+    user_to_id = Column(Integer, ForeignKey('user.id'))
 
     def to_dict(self):
         return {}
